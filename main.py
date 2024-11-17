@@ -46,7 +46,7 @@ with st.sidebar:
 
 
 # Set up tabs
-tab1, tab2, tab3 = st.tabs(['Names', 'Year', 'Battle of the Sexes'])
+tab1, tab2, tab3 = st.tabs(['Names', 'Year', 'One Hit Wonders'])
 
 # Name Trends
 with tab1:
@@ -67,12 +67,20 @@ with tab2:
     st.dataframe(names_table)
 
 
-# Sex Balance Plot
+# One Hit Wonders
 with tab3:
-    fig3 = name_sex_balance_plot(data, input_name)
-    if fig3:
-        st.plotly_chart(fig3, use_container_width=True)
-    else:
-        st.write("No data available for the selected name.")
+    result = one_hit_wonders(ohw_data, input_year)
+
+    st.write(result["message"])  # Display the main message
+    
+    if result["data"] is not None:
+        # Display counts and most common names
+        st.write(f"Number of female one-hit wonders: {result['female_count']}")
+        st.write(f"Number of male one-hit wonders: {result['male_count']}")
+        st.write(f"Most common female one-hit wonder: {result['most_common_female']}")
+        st.write(f"Most common male one-hit wonder: {result['most_common_male']}")
+        
+        # Display the table of one-hit wonders
+        st.dataframe(result["data"])
 
 

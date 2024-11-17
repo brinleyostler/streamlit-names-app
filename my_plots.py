@@ -172,25 +172,32 @@ def unique_names_summary(df, year=1977):
     return output
 
 def one_hit_wonders(ohw_data, year=1977):
-    
-    ohw_year = ohw_data[ohw_data['year']==year]
+    ohw_year = ohw_data[ohw_data['year'] == year]
 
     if ohw_year.empty:
-        print(f"No one-hit wonders found in {year}")
+        return {
+            "message": f"No one-hit wonders found in {year}",
+            "data": None
+        }
     else:
         one_hit_wonder_counts = ohw_year['sex'].value_counts()
         common_one_hit_wonders = ohw_year.groupby(['name', 'sex'])['count'].sum().reset_index()
 
-        try: 
+        try:
             most_common_female = common_one_hit_wonders[common_one_hit_wonders['sex'] == 'F'].sort_values(by='count', ascending=False).iloc[0]
             most_common_male = common_one_hit_wonders[common_one_hit_wonders['sex'] == 'M'].sort_values(by='count', ascending=False).iloc[0]
 
-            print(f"Summary of One-Hit Wonders in {year}:")
-            print(f"Number of female one-hit wonders: {one_hit_wonder_counts.get('F', 0)}")
-            print(f"Number of male one-hit wonders: {one_hit_wonder_counts.get('M', 0)}")
-
-            print(f"Most common female one-hit wonder: {most_common_female['name']} with {most_common_female['count']} occurrences")
-            print(f"Most common male one-hit wonder: {most_common_male['name']} with {most_common_male['count']} occurrences")
-        except:
-            print(f"Not enough data to calculate one-hit wonders by sex in {year}")
-
+            summary = {
+                "message": f"Summary of One-Hit Wonders in {year}:",
+                "female_count": one_hit_wonder_counts.get('F', 0),
+                "male_count": one_hit_wonder_counts.get('M', 0),
+                "most_common_female": f"{most_common_female['name']} ({most_common_female['count']} occurrences)",
+                "most_common_male": f"{most_common_male['name']} ({most_common_male['count']} occurrences)",
+                "data": common_one_hit_wonders  # Data for table display
+            }
+            return summary
+        except IndexError:
+            return {
+                "message": f"Not enough data to calculate one-hit wonders by sex in {year}",
+                "data": None
+            }
