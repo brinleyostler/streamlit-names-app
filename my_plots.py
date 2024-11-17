@@ -193,7 +193,8 @@ def one_hit_wonders(ohw_data, year=1977):
                 "male_count": one_hit_wonder_counts.get('M', 0),
                 "most_common_female": f"{most_common_female['name']} ({most_common_female['count']} occurrences)",
                 "most_common_male": f"{most_common_male['name']} ({most_common_male['count']} occurrences)",
-                "data": common_one_hit_wonders  # Data for table display
+                "female data": most_common_female,  # Data for table display
+                "male data": most_common_male
             }
             return summary
         except IndexError:
