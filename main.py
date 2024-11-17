@@ -40,9 +40,10 @@ ohw_data = ohw(data)
 st.title('My Cool Name App')
 
 with st.sidebar:
-    input_name = st.text_input('Enter a name:')
+    input_name = st.text_input('Enter a name:', 'Taylor')
     input_year = st.slider('Select a year:', min_value=1880, max_value=2023, value=2000)
     n_names = st.radio('Number of names per sex:', [3, 4, 5, 6, 10])
+    ohw_year = st.number_input('Year for one-hit wonders:', min_value=1880, max_value=2023, value=2000)
 
 
 # Set up tabs
@@ -69,7 +70,7 @@ with tab2:
 
 # One Hit Wonders
 with tab3:
-    result = one_hit_wonders(ohw_data, input_year)
+    result = one_hit_wonders(ohw_data, ohw_year)
 
     st.write(result["message"])  # Display the main message
     
