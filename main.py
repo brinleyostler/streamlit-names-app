@@ -70,16 +70,17 @@ with tab2:
 
 # One Hit Wonders
 with tab3:
+    col1, col2 = st.columns(2)
     result = one_hit_wonders(ohw_data, ohw_year)
 
     st.write(result["message"])  # Display the main message
     
     if result["data"] is not None:
         # Display counts and most common names
-        st.expander.write(f"Number of female one-hit wonders: {result['female_count']}")
-        st.expander.write(f"Number of male one-hit wonders: {result['male_count']}")
-        st.expander.write(f"Most common female one-hit wonder: {result['most_common_female']}")
-        st.expander.write(f"Most common male one-hit wonder: {result['most_common_male']}")
+        col1.write(f"Number of female one-hit wonders: {result['female_count']}")
+        col2.write(f"Number of male one-hit wonders: {result['male_count']}")
+        col1.write(f"Most common female one-hit wonder: {result['most_common_female']}")
+        col2.write(f"Most common male one-hit wonder: {result['most_common_male']}")
         
         # Display the table of one-hit wonders
         st.dataframe(result["data"])
