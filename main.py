@@ -76,10 +76,10 @@ with tab3:
     
     if result["data"] is not None:
         # Display counts and most common names
-        st.write(f"Number of female one-hit wonders: {result['female_count']}")
-        st.write(f"Number of male one-hit wonders: {result['male_count']}")
-        st.write(f"Most common female one-hit wonder: {result['most_common_female']}")
-        st.write(f"Most common male one-hit wonder: {result['most_common_male']}")
+        st.sidebar.write(f"Number of female one-hit wonders: {result['female_count']}")
+        st.sidebar.write(f"Number of male one-hit wonders: {result['male_count']}")
+        st.sidebar.write(f"Most common female one-hit wonder: {result['most_common_female']}")
+        st.sidebar.write(f"Most common male one-hit wonder: {result['most_common_male']}")
         
         # Display the table of one-hit wonders
         st.dataframe(result["data"])
