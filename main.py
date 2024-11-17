@@ -42,7 +42,7 @@ st.title('My Cool Name App')
 with st.sidebar:
     input_name = st.text_input('Enter a name:')
     input_year = st.slider('Select a year:', min_value=1880, max_value=2023, value=2000)
-    n_names = st.radio('Number of names per sex:', [3, 5, 10])
+    n_names = st.radio('Number of names per sex:', [3, 4, 5, 6, 10])
 
 
 # Set up tabs
@@ -70,7 +70,9 @@ with tab2:
 # Sex Balance Plot
 with tab3:
     fig3 = name_sex_balance_plot(data, input_name)
-    st.plotly_chart(fig3)
-
+    if fig3:
+        st.plotly_chart(fig3, use_container_width=True)
+    else:
+        st.write("No data available for the selected name.")
 
 

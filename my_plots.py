@@ -114,11 +114,14 @@ def name_trend_plot(df, name='John', width=800, height=600):
         return fig
 
 def name_sex_balance_plot(df, name='John'):
+    import matplotlib.pyplot as plt  # Ensure Matplotlib is imported within the script
+
     name_data = df[df['name'] == name].copy()
     color_map = {"M": "#636EFA", "F": "#EF553B"}
 
     if name_data.empty:
         print("Name not found in the dataset.")
+        return None  # Return None if no data is found
     else:
         sex_counts = name_data.groupby('sex').sum()['count']
         male_count = sex_counts.get('M', 0)
@@ -143,26 +146,17 @@ def name_sex_balance_plot(df, name='John'):
             # Add labels to display the ratios
             ax.text(male_ratio / 2, 0, f"{male_ratio * 100:.1f}%", va='center', 
                     ha='center', color='white', 
-                    fontweight='bold',
-                    fontsize=20)
-            ax.text(male_ratio / 2, -.25, "male", va='center', 
-                    ha='center', color='white', 
-                    fontweight='bold',
-                    fontsize=20)
+                    fontweight='bold', fontsize=12)
             ax.text(male_ratio + female_ratio / 2, 0, f"{female_ratio * 100:.1f}%", va='center', 
                     ha='center', color='white', 
-                    fontweight='bold',
-                    fontsize=20)
-            ax.text(male_ratio + female_ratio / 2, -.25, "female", va='center', 
-                    ha='center', color='white', 
-                    fontweight='bold',
-                    fontsize=20)
-            plt.title(f"Sex Balance of the '{name}'")
+                    fontweight='bold', fontsize=12)
+
+            plt.title(f"Sex Balance of the Name '{name}'")
             return fig
-
-
         else:
             print("Insufficient data for gender dominance calculation.")
+            return None
+
 
 def unique_names_summary(df, year=1977):
     year_data = df[df['year'] == year].copy()
