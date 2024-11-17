@@ -69,8 +69,7 @@ with tab2:
 
 # One Hit Wonders
 with tab3:
-    ohw_year = st.slider('Select a year:', min_value=1880, max_value=2023, value=2000)
-    result = one_hit_wonders(ohw_data, ohw_year)
+    result = one_hit_wonders(ohw_data, input_year)
 
     st.write(result["message"])  # Display the main message
     
